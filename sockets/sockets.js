@@ -1,4 +1,4 @@
-const { Socket } = require('socket.io');
+//const { Socket } = require('socket.io');
 const { io } = require('../index'); //== ESTO ES NECESARIO PARA PODER
 
 
@@ -10,17 +10,24 @@ io.on('connection', client => {
 
     //====== AÑADIDO PARA EL CHAT =============================
     //---------------------------------------------------------
-    io.emit('mensaje',{
+    /*io.emit('mensaje',{
         //== Se puede mandar cualquier cantidad de elementeos en el mensaje
         mensaje: 'Bienvenido al server',//== Texto
         fecha: new Date(),//== Fecha y hora del SERVIDOR
-    });
+    });*/
 
     //===== Escuchar el Evento =====
-    client.on('mensaje', (data)=>{
+    client.on('mensaje-al-servidor', (data)=>{
         console.log(data);
+        //==== OJOOOO!!!! SI DEJO 'socket' ó 'client no lo recivirá todo el 
+        //mundo del chat
+        //client.emit('mensaje-del-servidor',data);
+
+        //=== SI PONGO 'io' SÍ LO RECIVIRÁN TODOS LOS QUE ESTÉN CONECTADOS
+        //=== SE EMITO POR LO TANTO UN MENSAJE GLOBAL A TODOS LOS CONECTADOS
+        io.emit('mensaje-del-servidor',data);
     });
-    
+    //_________________________________________________________
     //=========================================================
 
     client.on('disconnect', () => { 

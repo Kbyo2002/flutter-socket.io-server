@@ -1,3 +1,4 @@
+//const { Socket } = require('dgram');
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
@@ -19,6 +20,16 @@ require('./sockets/sockets');//==> HAGO LA LLAMADA A ESTE ARCHIVO
 //==== Path público
 const publicPath = path.resolve(__dirname,'public');
 app.use(express.static(publicPath));
+
+//===== NUEVO DEL CHAT ========
+//_________________________
+/*io.on('connection', (socket) => {
+    socket.on('mensaje',(data)=>{
+        console.log(data);
+    })
+})
+//========================*/
+
 
 server.listen(process.env.PORT, (err) =>{
 

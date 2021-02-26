@@ -25,7 +25,7 @@
 
             </div>
             <div class="col-4">
-                <button class="btn btn-primary">
+                <button type="submit" class="btn btn-primary">
                     Enviar
                 </button>
             </div>
@@ -47,10 +47,27 @@
 
     <script>
         var socket = io();
-
+        
         //========= añadido del chat ==============================
+        //==== Referencias elementos del DOM
         const formulario = document.querySelector('#miFormulario');
-        const misMensajes = document.querySelector('#miFormulario');
+        const mensajes   = document.querySelector('#misMensajes');
+        const txtMensaje = document.querySelector('#txtMensaje');
+
+        formulario.addEventListener('submit', (ev)=>{
+            ev.preventDefault();
+
+            const nuevoMensaje = txtMensaje.value;
+           //== ahora emito el mensaje al servidor desde el cliente
+           socket.emit('mensaje-al-servidor',{texto: nuevoMensaje});
+        });
+        //=== aquí recibo el mensaje del servidor ====
+        socket.on('mensaje-del-servidor',(data)=>{
+            //console.log(data);
+            mensajes.innerHTML += `<li>${data.texto}</li>`;
+            ////!!! OJO NO SON '' SON DE ESTE OTRO TIPO ``
+        })
+        //_________________________________________________________
         //=========================================================
 
         socket.on('connect', function(){
@@ -64,10 +81,11 @@
         //========================================
         //====== añadido del chat ================
         //----------------------------------------
-        socket.on('mensaje', (data)=>{
+        /*socket.on('mensaje', (data)=>{
             console.log( data )
         
         })
+        */
 
         /*setTimeout(()=>{
             socket.emit('mensaje',{
