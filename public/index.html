@@ -30,6 +30,24 @@
         socket.on('mensaje',function( payload){
             console.log('Escuchando:', payload);
         });
+
+        //====== PARA ESCUCHAR AL SERVIDOR, CON EL MENSAJE 'nuevo-mensaje'
+        socket.on('nuevo-mensaje',function( payload){
+            console.log('Escuchando:', payload);
+        });
+
+        //====== PARA ESCUCHAR AL SERVIDOR, CON EL MENSAJE 'sistemas-activos'
+        socket.on('sistemas-activos',function( inscritos){
+            console.clear();
+            console.table(inscritos);
+        });
+        
+        //====== PARA ESCUCHAR AL SERVIDOR, CON EL MENSAJE 'sistemas-activos'
+        socket.on('dispositivos-activos',function( payload){
+           console.log(payload);
+        });
+
+
     </script>
 </body>
 </html>
